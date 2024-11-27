@@ -62,6 +62,33 @@ session    include      system-auth-nofingerprint
 * Fedora doesn't include all non-free flatpaks by default. The command below enables access to all the flathub flatpaks. Particularly useful for users of Fedora KDE and other spins since they do not get the "Enable Third Party Repositories" option on initial boot.
 * `flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
 
+## Install ZSH
+https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
+```
+sudo dnf install zsh
+```
+* Verify installation by running zsh --version
+* Make it your default shell: `chsh -s $(which zsh)` or use `sudo lchsh $USER` if you are on Fedora.
+
+### Optional
+* Install `zoxide` and `zsh-syntax-highlighting`
+```
+sudo dnf install zoxide zsh-syntax-highlighting
+```
+
+## Increase Volume
+* Install `pavucontrol`
+```
+flatpak install org.pulseaudio.pavucontrol
+```
+
+## Font Scaling
+* Install `gnome-tweaks`
+```
+sudo dnf install gnome-tweaks
+```
+* Go under `Font > Size > Scaling Factor`
+
 ## NVIDIA Drivers
 * Only follow this if you have a NVIDIA gpu. Also, don't follow this if you have a gpu which has dropped support for newer driver releases i.e. anything earlier than nvidia GT/GTX 600, 700, 800, 900, 1000, 1600 and RTX 2000, 3000, 4000 series. Fedora comes preinstalled with NOUVEAU drivers which may or may not work better on those remaining older GPUs. This should be followed by Desktop and Laptop users alike.
 * Disable Secure Boot.
