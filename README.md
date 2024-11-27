@@ -36,6 +36,28 @@ sudo fwupdmgr get-devices # Lists devices with available updates.
 sudo fwupdmgr get-updates # Fetches list of available updates.
 sudo fwupdmgr update
 ```
+## Disable Fingerprint Sudo
+```
+sudo cp /etc/pam.d/system-auth /etc/pam.d/system-auth-nofingerprint
+sudo vim /etc/pam.d/system-auth-nofingerprint
+```
+* Remove/comment the line containing `pam_fprintd.so` then:
+```
+sudo cp /etc/pam.d/sudo /etc/pam.d/sudo.bak
+sudo vim /etc/pam.d/sudo
+```
+* Include the no-fingerprint module like this:
+```
+#%PAM-1.0
+auth       include      system-auth-nofingerprint
+account    include      system-auth-nofingerprint
+password   include      system-auth-nofingerprint
+session    optional     pam_keyinit.so revoke
+session    required     pam_limits.so
+session    include      system-auth-nofingerprint
+```
+
+
 ## Flatpak
 * Fedora doesn't include all non-free flatpaks by default. The command below enables access to all the flathub flatpaks. Particularly useful for users of Fedora KDE and other spins since they do not get the "Enable Third Party Repositories" option on initial boot.
 * `flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
