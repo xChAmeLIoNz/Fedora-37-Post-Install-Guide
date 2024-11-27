@@ -89,6 +89,9 @@ sudo dnf install gnome-tweaks
 ```
 * Go under `Font > Size > Scaling Factor`
 
+## Setup AppImage Launcher
+* See https://github.com/TheAssassin/AppImageLauncher
+
 ## NVIDIA Drivers
 * Only follow this if you have a NVIDIA gpu. Also, don't follow this if you have a gpu which has dropped support for newer driver releases i.e. anything earlier than nvidia GT/GTX 600, 700, 800, 900, 1000, 1600 and RTX 2000, 3000, 4000 series. Fedora comes preinstalled with NOUVEAU drivers which may or may not work better on those remaining older GPUs. This should be followed by Desktop and Laptop users alike.
 * Disable Secure Boot.
