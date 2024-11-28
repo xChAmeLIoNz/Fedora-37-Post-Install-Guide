@@ -1,5 +1,5 @@
  # Fedora 41 Post Install Guide
-Things to do after installing Fedora 40
+Things to do after installing Fedora 41
 
 ## Faster Updates
 * `sudo nano /etc/dnf/dnf.conf` 
@@ -56,8 +56,25 @@ session    optional     pam_keyinit.so revoke
 session    required     pam_limits.so
 session    include      system-auth-nofingerprint
 ```
+## Auto-switch power profiles on charger/battery
+* Ensure you have `inotify-tools`, `tuned` and `tuned-ppd` packages installed
+```bash
+sudo dnf install inotify-tools tuned tuned-ppd
+```
+* Copy [this script](https://github.com/xChAmeLIoNz/Fedora-41-Post-Install-Guide/blob/main/power_monitor_tuned.sh) to `~/.local/bin`
+```bash
+chmod +x ~/.local/bin/power_monitor_tuned.sh
+```
+* Create the [systemd service](https://github.com/xChAmeLIoNz/Fedora-41-Post-Install-Guide/blob/main/power-monitor.service) to `~/.config/systemd/user/power-monitor.service`
+* Create the [PolKit rule](https://github.com/xChAmeLIoNz/Fedora-41-Post-Install-Guide/blob/main/50-tuned-iseppe.rules) to `/etc/polkit-1/rules.d/50-tuned-iseppe.rules` for required permissions
+* Enable and start the service
+```
+systemctl --user daemon-reload
+systemctl --user enable --now power-monitor.service
+systemctl --user start power-monitor.service
+```
 
-
+  
 ## Flatpak
 * Fedora doesn't include all non-free flatpaks by default. The command below enables access to all the flathub flatpaks. Particularly useful for users of Fedora KDE and other spins since they do not get the "Enable Third Party Repositories" option on initial boot.
 * `flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
