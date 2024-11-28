@@ -264,6 +264,13 @@ Video Trimmer
 VS Codium
 yt-dlp
 ```
+
+## Start Vesktop (Flatpak) minimized
+* Add Vesktop as a startup app in `Gnome Tweaks`
+```
+vim .config/autostart/dev.vencord.Vesktop.desktop
+```
+* Add `--start-minimized` at the end of the `Exec` line
   
 ## Theming [Optional]
 
