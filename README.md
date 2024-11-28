@@ -73,7 +73,7 @@ systemctl --user daemon-reload
 systemctl --user enable --now power-monitor.service
 systemctl --user start power-monitor.service
 ```
-
+[Source](https://kobusvs.co.za/blog/power-profile-switching/)
   
 ## Flatpak
 * Fedora doesn't include all non-free flatpaks by default. The command below enables access to all the flathub flatpaks. Particularly useful for users of Fedora KDE and other spins since they do not get the "Enable Third Party Repositories" option on initial boot.
