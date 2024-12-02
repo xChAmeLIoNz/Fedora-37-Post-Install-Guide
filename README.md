@@ -107,6 +107,10 @@ sudo dnf install gnome-tweaks
 ```
 * Go under `Font > Size > Scaling Factor`
 
+## [GNOME] Ungroup alt-tab applications
+* Go to Settings > Keyboard
+* Set shortcut `Switch Windows` to `Alt+Tab`
+
 ## Setup AppImage Launcher
 * See https://github.com/TheAssassin/AppImageLauncher
 
