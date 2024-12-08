@@ -144,6 +144,12 @@ sudo dnf install gnome-tweaks
 ```
 * Go under `Font > Size > Scaling Factor`
 
+## Increase App Window Freeze Timeout
+* Adjust the value if needed (60 secs)
+```
+gsettings set org.gnome.mutter check-alive-timeout 60000
+```
+
 ## [GNOME] Ungroup alt-tab applications
 * Go to Settings > Keyboard
 * Set shortcut `Switch Windows` to `Alt+Tab`
