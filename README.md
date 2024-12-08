@@ -110,6 +110,8 @@ sudo ln -s /usr/share/doc/android-tools/51-android.rules /etc/udev/rules.d
 ```
 sudo udevadm control --reload
 ```
+[See #1](https://discussion.fedoraproject.org/t/guide-use-adb-fastboot-on-fedora-for-installing-custom-android-os/101410)
+[See #2](https://gist.github.com/smac89/251368c8df2ccd645baedc3e1238fdb4)
 
 ## Flatpak
 * Fedora doesn't include all non-free flatpaks by default. The command below enables access to all the flathub flatpaks. Particularly useful for users of Fedora KDE and other spins since they do not get the "Enable Third Party Repositories" option on initial boot.
