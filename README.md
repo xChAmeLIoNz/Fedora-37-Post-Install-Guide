@@ -75,7 +75,42 @@ systemctl --user start power-monitor.service
 ```
 [Source](https://kobusvs.co.za/blog/power-profile-switching/)
 Also [look at this](https://linrunner.de/tlp/installation/fedora.html)
-  
+
+## Fastboot permissions
+* Install the `android-tools` package or [download the SDK from Google](https://developer.android.com/tools/releases/platform-tools#downloads.html)
+
+```
+sudo dnf install android-tools
+```
+* Add user to `plugdev` group
+```
+# Create if not exists
+sudo groupadd plugdev
+
+# add user to group
+sudo usermod -aG plugdev $USER
+```
+* Find and add your `idVendor` to udev rules (usually `18d1` for Google devices)
+
+Example: `Bus 003 Device 016: ID 18d1:4ee7 Google Inc. Nexus/Pixel Device (charging + debug)`
+```
+lsusb
+
+sudo vim /usr/share/doc/android-tools/51-android.rules
+```
+* Search for your `idVendor` and comment the line if it exists, then add:
+```
+SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+```
+* For whatever reason the udev rules are not active, even after installing the package. You need to link them to the correct location:
+```
+sudo ln -s /usr/share/doc/android-tools/51-android.rules /etc/udev/rules.d
+```
+* Restart `udevadm`
+```
+sudo udevadm control --reload
+```
+
 ## Flatpak
 * Fedora doesn't include all non-free flatpaks by default. The command below enables access to all the flathub flatpaks. Particularly useful for users of Fedora KDE and other spins since they do not get the "Enable Third Party Repositories" option on initial boot.
 * `flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo`
@@ -128,6 +163,9 @@ sudo dnf install gnome-tweaks
 * Reboot
 
 ## ~~Battery Life (Deprecated)~~
+<details>
+<summary>Expand</summary>
+
 * ~~Follow this if you have a Laptop and are facing sub optimal battery backup.~~
 * ~~power-profiles-daemon which come pre-configured on fedora works well on a great majority of systems but still in case you're facing sub-optimal battery backup you try installing tlp by:~~
 * ~~`sudo dnf install tlp tlp-rdw`~~
@@ -137,6 +175,8 @@ sudo dnf install gnome-tweaks
 * ~~`sudo dnf install powertop`~~
 * ~~`sudo powertop --auto-tune`~~
 * Edit: Fedora comes preinstalled with PPD(power-profiles-daemon) which works well on its own now and all the aforementioned changes are now unnecessary. Just follow [HW video acceleration](https://github.com/devangshekhawat/Fedora-40-Post-Install-Guide/blob/main/README.md#hw-video-acceleration) for better battery backup. 
+ 
+</details>
 
 ## Media Codecs
 * Install these to get proper multimedia playback.
@@ -217,7 +257,10 @@ DNSOverTLS=yes
 * `sudo rm /etc/xdg/autostart/org.gnome.Software.desktop`
 
 ## Gnome Extensions
-* Don't install these if you are using a different spin of Fedora.
+> Don't install these if you are using a different spin of Fedora.
+<details>
+<summary>Expand</summary>
+
 * Pop Shell - run `sudo dnf install -y gnome-shell-extension-pop-shell xprop` to install it.
 * [GSconnect](https://extensions.gnome.org/extension/1319/gsconnect/) - run `sudo dnf install nautilus-python` for full support.
 * [Gesture Improvements](https://extensions.gnome.org/extension/4245/gesture-improvements/)
@@ -239,10 +282,15 @@ DNSOverTLS=yes
 * [Logo Menu](https://extensions.gnome.org/extension/4451/logo-menu/)
 * [Space Bar](https://github.com/christopher-l/space-bar)
 
+</details>
+
 ## Apps [Optional]
 * Packages for Rar and 7z compressed files support:
  `sudo dnf install -y unzip p7zip p7zip-plugins unrar`
 * These are Some Packages that I use and would recommend:
+<details>
+<summary>Expand</summary>
+ 
 ```
 Amberol
 Blanket
@@ -286,6 +334,8 @@ Video Trimmer
 VS Codium
 yt-dlp
 ```
+
+</details>
 
 ## Start Vesktop (Flatpak) minimized
 * Add Vesktop as a startup app in `Gnome Tweaks`
